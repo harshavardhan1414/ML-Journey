@@ -1,7 +1,7 @@
 import pandas as pd
 # import numpy as np
 
-# 1. Creating Sample Dataset
+# 1. creating sample dataset
 data={"Name":["Harsha","Rahul","Sai"],
       "Age":[21,25,23],
       "Department":["IT","HR","IT"],
@@ -10,14 +10,14 @@ data={"Name":["Harsha","Rahul","Sai"],
 df=pd.DataFrame(data)
 print(df)
 
-# 2. Basic Information
+# 2. basic information
 # this gives data type info
 print(df.info()) 
 
 # this gives statistics
 print(df.describe())
 
-# 3. Handling Missing Values
+# 3. handling missing values
 
 df["Age"].fillna(df["Age"].mean())
 df["Salary"].fillna(df["Salary"].median())
@@ -27,43 +27,43 @@ df.fillna(0) # this will fill null with 0's
 df.dropna() # this will drop rows with null values
 
 
-# 4. Filtering Data
+# 4. filtering data
 # this gives only employes with particular salary
 salary_filterd=df[df["Salary"]==40000]
 
-#5. Feature Engineering
+#5. feature engineering
 # it creates seperate column in df 
 df["Salary_per_Year_of_Exp"] = df["Salary"] / df["Experience"]
 print("After Feature Engineering:")
 print(df)
 
-# 6. GroupBy Operations
+# 6. groupBy operations
 
 # when we use groupby we will always use categorical col with numerical col
 grouped = df.groupby("Department")["Salary"].mean()
 print("Average Salary by Department:")
 print(grouped)
 
-# 7. Sorting
+# 7. sorting
 
 sorted_df = df.sort_values(by="Salary", ascending=False)
 print("Sorted by Salary (Descending):")
 print(sorted_df)
 
-# 8.Data Loading in pd
+# 8.data loading in pd
 
 df=pd.read_csv("data.csv")
 df=pd.read_excel("data.xlsx")
 df=pd.read_json("data.json")
 
-9.# Exploaring data
+9.# exploaring data
 df.head()      # First 5 rows
 df.tail()      # Last 5 rows
 
 df.shape       # (rows, columns)
 df.columns     # Column names
 
-#10. Removing Duplicates
+#10. removing duplicates
 df.drop_duplicates()
 
 # 11.change the datatypes
@@ -85,26 +85,26 @@ df["Year"] = df["Date"].dt.year
 # apply() and lambda
 df["bonus"]=df["Salary"].apply(lambda x: x*0.10) # needed for custom transformations
 
-# Vectorization
+# vectorization
 # Pd performs elementwise addition
 df["Total"] = df["Salary"] + df["Bonus"]
 
-# MultiIndex
+# multiIndex
 df.set_index(["Department", "Name"])
 
-# Merge
+# merge
 pd.merge(df1, df2, on="ID", how="inner")# it keeps only id's which are same
 
-# Concatenation
+# concatenation
 pd.concat([df1, df2], axis=0,ignore_index=True)
 
-# Pivot Table
+# pivot table
 pd.pivot_table(df, values="Salary", index="Department", aggfunc="mean")
 
-# Rolling Mean
+# rolling mean
 df["Salary"].rolling(window=3).mean()
 
-# Memory Optimization
+# memory optimization
 df["Department"] = df["Department"].astype("category")  # for memory saving
 
 #quering
